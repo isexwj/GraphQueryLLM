@@ -1,0 +1,122 @@
+[
+    {
+        "cypher": "MATCH (q:Question) RETURN q ORDER BY q.createdAt DESC LIMIT 3",
+        "gql": "MATCH (q:Question) RETURN q ORDER BY q.createdAt DESC LIMIT 3"
+    },
+    {
+        "cypher": "MATCH (c:Customer)-[:PURCHASED]->(o:Order)-[:ORDERS]->(p:Product) WITH c, COUNT(DISTINCT p.productID) AS distinctProducts ORDER BY distinctProducts DESC LIMIT 3 RETURN c.companyName AS customerName, distinctProducts",
+        "gql": "MATCH (c:Customer)-[:PURCHASED]->(o:`Order`)-[:ORDERS]->(p:`Product`) RETURN c, COUNT(DISTINCT p.productID) AS distinctProducts ORDER BY distinctProducts DESC LIMIT 3 NEXT RETURN c.companyName AS customerName, distinctProducts"
+    },
+    {
+        "cypher": "MATCH (s:Storm) RETURN s.Name, s.Damage_millions_USD ORDER BY s.Max_speed DESC",
+        "gql": "MATCH (s:Storm) RETURN s.Name, s.Damage_millions_USD ORDER BY s.Max_speed DESC"
+    },
+    {
+        "cypher": "MATCH (n:Article) WHERE n.article_id > 1052 OR n.article_id < 1008 RETURN n LIMIT 8",
+        "gql": "MATCH (n:Article) WHERE n.article_id > 1052 OR n.article_id < 1008 RETURN n LIMIT 8"
+    },
+    {
+        "cypher": "MATCH (n:Article) -[pu:PUBLISHED_IN {meta : '218'}]->(m) WHERE n.article_id='1139' RETURN m.journal_id",
+        "gql": "MATCH (n:Article)-[pu:PUBLISHED_IN {meta: '218'}]->(m) WHERE n.article_id='1139' RETURN m.journal_id"
+    },
+    {
+        "cypher": "MATCH (m:Movie)<-[r:REVIEWED]-() WHERE r.summary = \"A solid romp\" RETURN m.title",
+        "gql": "MATCH (m:Movie)<-[r:REVIEWED]-() WHERE r.summary = \"A solid romp\" RETURN m.title"
+    },
+    {
+        "cypher": "MATCH (n:DOI) WHERE n.name = '10.1006/jnth.2000.2616' RETURN n",
+        "gql": "MATCH (n:DOI) WHERE n.name = '10.1006/jnth.2000.2616' RETURN n"
+    },
+    {
+        "cypher": "MATCH (p:Person)-[:PRODUCED]->(m:Movie) WHERE p.born > 1960 RETURN m LIMIT 5",
+        "gql": "MATCH (p:Person)-[:PRODUCED]->(m:Movie) WHERE p.born > 1960 RETURN m LIMIT 5"
+    },
+    {
+        "cypher": "MATCH (m:Movie) WHERE m.revenue < 1000 RETURN m.title, m.revenue ORDER BY m.released LIMIT 3",
+        "gql": "MATCH (m:Movie) WHERE m.revenue < 1000 RETURN m.title, m.revenue ORDER BY m.released LIMIT 3"
+    },
+    {
+        "cypher": "MATCH (people:people) RETURN people.Name,people.Birth_Date ORDER BY people.Name ASC",
+        "gql": "MATCH (people:people) RETURN people.Name, people.Birth_Date ORDER BY people.Name ASC"
+    },
+    {
+        "cypher": "MATCH (n:Article), (:Author {last_name: 'Dunajski'}) WHERE NOT (n) --> (:Author) RETURN n.article_id",
+        "gql": "❌MATCH (n:Article), (:Author {last_name: 'Dunajski'}) WHERE NOT EXISTS {(n) --> (:Author)} RETURN n.article_id"
+    },
+    {
+        "cypher": "MATCH (n:DocumentsToBeDestroyed) RETURN DISTINCT n.Destroyed_by_Employee_ID",
+        "gql": "MATCH (n:DocumentsToBeDestroyed) RETURN DISTINCT n.Destroyed_by_Employee_ID"
+    },
+    {
+        "cypher": "MATCH (m:Movie) WHERE m.revenue > m.budget RETURN m.title",
+        "gql": "MATCH (m:Movie) WHERE m.revenue > m.budget RETURN m.title"
+    },
+    {
+        "cypher": "MATCH (b:Business)-[:IN_CATEGORY]->(c:Category) WITH c.name AS CategoryName, COUNT(b) AS NumberOfBusinesses ORDER BY NumberOfBusinesses DESC LIMIT 5 RETURN CategoryName, NumberOfBusinesses",
+        "gql": "MATCH (b:Business)-[:IN_CATEGORY]->(c:Category)\nRETURN c.name AS CategoryName, COUNT(b) AS NumberOfBusinesses\nORDER BY NumberOfBusinesses DESC LIMIT 5\nNEXT RETURN CategoryName, NumberOfBusinesses"
+    },
+    {
+        "cypher": "MATCH (u:User)-[:PROVIDED]->(a:Answer) WITH u, count(a) AS provided_answer_count ORDER BY provided_answer_count DESC LIMIT 1 MATCH (u)-[:PROVIDED]->(answer:Answer)-[:ANSWERED]->(q:Question) MATCH (q)<-[:COMMENTED_ON]-(c:Comment)<-[:COMMENTED]-(commenter:User) MATCH (commenter)-[:COMMENTED]->(comment:Comment)-[:COMMENTED_ON]->(target_question:Question) WHERE target_question.view_count > 50 MATCH (target_question)<-[:ANSWERED]-(final_answer:Answer) RETURN final_answer.body_markdown",
+        "gql": "MATCH (u:User)-[:PROVIDED]->(a:Answer)\nRETURN u, count(a) AS provided_answer_count\nORDER BY provided_answer_count DESC LIMIT 1\nNEXT MATCH (u)-[:PROVIDED]->(answer:Answer)-[:ANSWERED]->(q:Question)\nMATCH (q)<-[:COMMENTED_ON]-(c:Comment)<-[:COMMENTED]-(commenter:User)\nMATCH (commenter)-[:COMMENTED]->(comment:Comment)-[:COMMENTED_ON]->(target_question:Question)\nWHERE target_question.view_count > 50\nMATCH (target_question)<-[:ANSWERED]-(final_answer:Answer)\nRETURN final_answer.body_markdown"
+    },
+    {
+        "cypher": "MATCH (s:Storm) RETURN s.Name, s.Damage_millions_USD ORDER BY s.Max_speed DESC",
+        "gql": "MATCH (s:Storm) RETURN s.Name, s.Damage_millions_USD ORDER BY s.Max_speed DESC"
+    },
+    {
+        "cypher": "MATCH (f:Filing)-[:BENEFITS]->(e:Entity) WHERE f.amount > 500000 RETURN e.name AS EntityName, e.location AS Location ORDER BY f.amount DESC LIMIT 3",
+        "gql": "MATCH (f:Filing)-[:BENEFITS]->(e:Entity) WHERE f.amount > 500000 RETURN e.name AS EntityName, e.location AS Location ORDER BY f.amount DESC LIMIT 3"
+    },
+    {
+        "cypher": "MATCH (jaime:Character { name: 'Jaime-Lannister' })-[:INTERACTS45]->(other) RETURN other.name",
+        "gql": "MATCH (jaime:Character {name: 'Jaime-Lannister'})-[:`INTERACTS45`]->(other) RETURN other.name"
+    },
+    {
+        "cypher": "MATCH (o:Organization) WHERE o.revenue IS NOT NULL RETURN o.name AS organization, o.revenue AS revenue ORDER BY o.revenue DESC LIMIT 5",
+        "gql": "MATCH (o:Organization) WHERE o.revenue IS NOT NULL RETURN o.name AS organization, o.revenue AS revenue ORDER BY revenue DESC LIMIT 5"
+    },
+    {
+        "cypher": "MATCH (r:Rack {rack: 1}) -[:HOLDS]->(s:Switch) -[:ROUTES]->(i:Interface) RETURN DISTINCT i.ip",
+        "gql": "MATCH (r:Rack {rack: 1})-[:HOLDS]->(s:Switch)-[:ROUTES]->(i:Interface) RETURN DISTINCT i.ip"
+    },
+    {
+        "cypher": "MATCH (s:Station) RETURN count(s)",
+        "gql": "MATCH (s:Station) RETURN count(s)"
+    },
+    {
+        "cypher": "MATCH (q:Question)-[:TAGGED]->(t:Tag {name: 'graphql-subscriptions'}) RETURN q.title AS title, q.text AS text, q.link AS link, q.createdAt AS createdAt, q.id AS id, q.upVotes AS upVotes, q.downVotes AS downVotes, q.score AS score, q.favorites AS favorites, q.answered AS answered",
+        "gql": "MATCH (q:Question)-[:TAGGED]->(t:Tag {name: 'graphql-subscriptions'}) RETURN q.title AS title, q.text AS text, q.link AS link, q.createdAt AS createdAt, q.id AS id, q.upVotes AS upVotes, q.downVotes AS downVotes, q.score AS score, q.favorites AS favorites, q.answered AS answered"
+    },
+    {
+        "cypher": "MATCH (m:Movie) WHERE m.revenue > m.budget RETURN m.title, m.revenue, m.budget ORDER BY m.released LIMIT 3",
+        "gql": "MATCH (m:Movie) WHERE m.revenue > m.budget RETURN m.title, m.revenue, m.budget ORDER BY m.released LIMIT 3"
+    },
+    {
+        "cypher": "MATCH (u:User)-[:ASKED]->(q:Question) WHERE u.reputation > 2000 AND q.score < 0 RETURN q.title AS question_title, q.link AS question_link, q.score AS question_score, u.display_name AS user_name, u.reputation AS user_reputation",
+        "gql": "MATCH (u:User)-[:ASKED]->(q:Question) WHERE u.reputation > 2000 AND q.score < 0 RETURN q.title AS question_title, q.link AS question_link, q.score AS question_score, u.display_name AS user_name, u.reputation AS user_reputation"
+    },
+    {
+        "cypher": "MATCH (a:Article)-[:VARIANT_OF]->(p:Product) WHERE a.prodName = 'Skinny R.W Chic' RETURN p.productTypeName",
+        "gql": "MATCH (a:Article)-[:VARIANT_OF]->(p:`Product`) WHERE a.prodName = 'Skinny R.W Chic' RETURN p.productTypeName"
+    },
+    {
+        "cypher": "MATCH (a:Actor)-[:ACTED_IN]->(m:Movie) WHERE m.budget < 50000000 RETURN a LIMIT 5",
+        "gql": "MATCH (a:Actor)-[:ACTED_IN]->(m:Movie) WHERE m.budget < 50000000 RETURN a LIMIT 5"
+    },
+    {
+        "cypher": "MATCH (role:Role {Role_Code:\"MG\"}) RETURN role.Role_Name, role.Role_Description",
+        "gql": "MATCH (role:Role {Role_Code:\"MG\"}) RETURN role.Role_Name, role.Role_Description"
+    },
+    {
+        "cypher": "MATCH (g:Genre {name: 'Adventure'})<-[:IN_GENRE]-(m:Movie) WITH avg(m.imdbRating) AS avgRating RETURN avgRating",
+        "gql": "MATCH (g:Genre {name: 'Adventure'})<-[:IN_GENRE]-(m:Movie)\nRETURN avg(m.imdbRating) AS avgRating\nNEXT RETURN avgRating"
+    },
+    {
+        "cypher": "MATCH (p:Process)-[:LISTENS]->(port:Port) RETURN p.name AS process_name, port.port AS port_number ORDER BY port_number DESC LIMIT 1",
+        "gql": "MATCH (p:Process)-[:LISTENS]->(port:Port) RETURN p.name AS process_name, port.port AS port_number ORDER BY port_number DESC LIMIT 1"
+    },
+    {
+        "cypher": "MATCH (o:Order)-[rel:ORDERS]->(p:Product) WITH o, sum(toFloat(rel.unitPrice) * rel.quantity * toFloat(rel.discount)) AS totalDiscount RETURN o.orderID, totalDiscount",
+        "gql": "MATCH (o:`Order`)-[rel:ORDERS]->(p:`Product`)\nRETURN o.orderID, sum(rel.unitPrice * rel.quantity * rel.discount) AS totalDiscount\nNEXT RETURN o.orderID, totalDiscount"
+    }
+]

@@ -1,0 +1,37 @@
+CALL2_1: CALL test.my.proc('Stefan', 1)
+CREATE6_8: CREATE ()-[r:R {num: 42}]->()       RETURN r       SKIP 1
+DELETE2_2: MATCH p = ()-[r:T]-()       WHERE r.id = 42       DELETE r
+MATCH7_30: MATCH (p:Player)-[:PLAYS_FOR]->(team:Team)       OPTIONAL MATCH (p)-[s:SUPPORTS]->(team)       RETURN count(*) AS matches, s IS NULL AS optMatch
+MATCHWHERE2_0: MATCH (a)--(b)--(c)--(d)--(a), (b)--(d)       WHERE a.id = 1         AND c.id = 2       RETURN d
+MERGE1_13: MATCH (a:A)       DELETE a       MERGE (a2:A)       RETURN a2.num
+REMOVE1_1: MATCH (n)       REMOVE n.num, n.name       RETURN size(keys(n)) AS props
+RETURN5_3: MATCH (n)       RETURN count(DISTINCT {name: [{name2: n.list}, {baz: {apa: n.list}}]}) AS count
+RETURNORDERBY1_6: UNWIND [1.5, 1.3, 999.99] AS floats       RETURN floats       ORDER BY floats
+RETURNSKIPLIMIT1_4: MATCH (n) RETURN n SKIP n.count
+SET6_19: MATCH ()-[r:R]->()       SET r.num = r.num + 1       RETURN sum(r.num) AS sum
+UNION2_2: UNWIND [2, 1, 2, 3] AS x       RETURN x       UNION ALL       UNWIND [3, 4] AS x       RETURN x
+UNWIND1_7: UNWIND [] AS empty       RETURN empty
+WITH6_3: MATCH p = ()-[*]->()       WITH count(*) AS count, p AS p       RETURN nodes(p) AS nodes
+WITHORDERBY4_7: MATCH (a:A)       WITH a, a.num + a.num2 AS sum       WITH a, a.num2 % 3 AS mod         ORDER BY sum         LIMIT 3       RETURN a, mod
+WITHSKIPLIMIT2_3: MATCH ()-[r1]->(x)       WITH x, sum(r1.num) AS c         ORDER BY c LIMIT 1       RETURN x, c
+WITHWHERE4_0: MATCH (a), (b)       WITH a, b       WHERE a <> b       RETURN a, b
+AGGREGATION1_1: MATCH ()-[r]-()       RETURN count(r)
+BOOLEAN4_2: MATCH (n)       WHERE NOT(n.name = 'apa' AND false)       RETURN n
+COMPARISON3_8: MATCH (n)       WHERE 10 < n.num <= 3       RETURN n.num
+CONDITIONAL2_0: RETURN CASE <value>           WHEN -10 THEN 'minus ten'           WHEN 0 THEN 'zero'           WHEN 1 THEN 'one'           WHEN 5 THEN 'five'           WHEN 10 THEN 'ten'           WHEN 3000 THEN 'three thousand'           ELSE 'something else'         END AS result
+EXISTENTIALSUBQUERY1_3: MATCH (n) WHERE exists {         (n)-[r]->() WHERE type(r) = 'NA'       }       RETURN n
+GRAPH5_1: MATCH ()-[r]->()       RETURN r, r:T2 AS result
+LIST5_39: RETURN [] IN [1, 2, null] AS res
+LITERALS3_16: RETURN -0x8000000000000001 AS literal
+MAP2_6: WITH $expr AS expr, $idx AS idx       RETURN expr[idx]
+MATHEMATICAL3_0: RETURN 42 — 41
+NULL1_1: OPTIONAL MATCH (n)       RETURN n.missing IS NULL,              n.exists IS NULL
+PATH3_1: MATCH (n)       RETURN length(n)
+PATTERN1_23: MATCH (n) WITH (n)-[]->() AS x RETURN x
+PRECEDENCE1_23: UNWIND [true, false, null] AS a       UNWIND [true, false, null] AS b       WITH collect((NOT a <nullpred>) = (NOT (a <nullpred>))) AS eq,            collect((NOT a <nullpred>) <> ((NOT a) <nullpred>)) AS neq       RETURN all(x IN eq WHERE x) AND any(x IN neq WHERE x) AS result
+QUANTIFIER8_2: RETURN all(x IN [1, 2, 3, 4, 5, 6, 7, 8, 9] WHERE <predicate>) = none(x IN [1, 2, 3, 4, 5, 6, 7, 8, 9] WHERE NOT (<predicate>)) AS result
+STRING9_3: MATCH (a)       WHERE a.name ENDS WITH ' '       RETURN a.name AS name
+TEMPORAL4_3: CREATE ({dates: <temporal>})
+TYPECONVERSION1_3: UNWIND [null, '', ' tru ', 'f alse'] AS things       RETURN toBoolean(things) AS b
+COUNTINGSUBGRAPHMATCHES1_6: MATCH (n)-[r]-(n)       RETURN count(DISTINCT r)
+TRIADICSELECTION1_8: MATCH (a:A)-[:KNOWS]->(b)-->(c:X)       OPTIONAL MATCH (a)-[r:KNOWS]->(c)       WITH c WHERE r IS NULL       RETURN c.name

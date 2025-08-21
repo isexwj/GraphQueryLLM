@@ -1,0 +1,37 @@
+CALL2_1: CALL test.my.proc('Stefan', 1)
+CREATE6_8: INSERT ()-[r {num:42}]->() RETURN r OFFSET 1
+DELETE2_2: MATCH ()-[r]-() WHERE r.id = 42 DELETE r
+MATCH7_30: MATCH (p)-[]->(team)   OPTIONAL MATCH (p)-[s]->(team)   RETURN count(*) AS matches, s IS NULL AS optMatch
+MATCHWHERE2_0: MATCH (a)-[]-(b)-[]-(c)-[]-(d)-[]-(a), (b)-[]-(d)   WHERE a.id = 1 AND c.id = 2   RETURN d
+MERGE1_13: ❌ 报错提示：查询包含 GQL 不支持的语法（如 `MERGE`），请用户重写查询或手动调整。
+REMOVE1_1: ❌ 报错提示：查询包含 GQL 不支持的语法（如 `keys()` 和 `size()` 函数），请用户重写查询或手动调整。
+RETURN5_3: ❌ 报错提示：查询包含 GQL 不支持的语法（如聚合函数中复杂嵌套映射结构），请用户重写查询或手动调整。
+RETURNORDERBY1_6: FOR floats IN [1.5, 1.3, 999.99]  RETURN floats  ORDER BY floats
+RETURNSKIPLIMIT1_4: ❌MATCH (n) RETURN n OFFSET n.count
+SET6_19: ❌MATCH ()-[r]->()   SET r.num = r.num + 1   RETURN sum(r.num) AS sum
+UNION2_2: FOR x IN [2, 1, 2, 3] RETURN x UNION ALL FOR x IN [3, 4] RETURN x
+UNWIND1_7: FOR empty IN [] RETURN empty
+WITH6_3: ❌ 报错提示：查询包含 GQL 不支持的语法（如 `nodes()` 函数和在 `WITH` 子句中同时使用聚合函数与非聚合变量），请用户重写查询或手动调整。
+WITHORDERBY4_7: ❌MATCH (a) LET sum = a.num + a.num2 LET mod = a.num2 % 3 ORDER BY sum LIMIT 3 RETURN a, mod
+WITHSKIPLIMIT2_3: MATCH ()-[r1]->(x)   RETURN x, sum(r1.num) AS c   GROUP BY x   ORDER BY c   LIMIT 1
+WITHWHERE4_0: MATCH (a), (b) WHERE a <> b RETURN a, b
+AGGREGATION1_1: MATCH ()-[r]-() RETURN count(r)
+BOOLEAN4_2: MATCH (n) WHERE NOT (n.name = 'apa' AND false) RETURN n
+COMPARISON3_8: MATCH (n) WHERE 10 < n.num AND n.num <= 3 RETURN n.num
+CONDITIONAL2_0: ❌RETURN CASE <value>            WHEN -10 THEN 'minus ten'            WHEN 0 THEN 'zero'            WHEN 1 THEN 'one'            WHEN 5 THEN 'five'            WHEN 10 THEN 'ten'            WHEN 3000 THEN 'three thousand'            ELSE 'something else'          END AS result
+EXISTENTIALSUBQUERY1_3: ❌ 报错提示：查询包含 GQL 不支持的语法（如 `exists{}` 模式过滤和 `type()` 函数），请用户重写查询或手动调整。
+GRAPH5_1: ❌ 报错提示：查询包含 GQL 不支持的语法（如关系类型谓词 `r:T2`），请用户重写查询或手动调整。
+LIST5_39: ❌RETURN [] IN [1, 2, null] AS res
+LITERALS3_16: ❌ 报错提示：查询包含 GQL 不支持的语法（十六进制整数字面量），请用户重写查询或手动调整。
+MAP2_6: ❌```gql LET expr = $expr LET idx = $idx RETURN expr[idx] ```
+MATHEMATICAL3_0: ❌ 报错提示：查询包含 GQL 不支持的语法（如 `—`），请用户重写查询或手动调整。
+NULL1_1: ❌OPTIONAL MATCH (n) RETURN n.missing IS NULL, n.exists IS NULL
+PATH3_1: ❌ 报错提示：查询包含 GQL 不支持的语法（如 `length()` 函数），请用户重写查询或手动调整。
+PATTERN1_23: ❌ 报错提示：查询包含 GQL 不支持的语法（在WITH子句中使用路径模式），请用户重写查询或手动调整。
+PRECEDENCE1_23: ❌ 报错提示：查询包含无法识别的语法（如 `<nullpred>`），请用户重写查询或手动调整。
+QUANTIFIER8_2: ❌ 报错提示：查询包含 GQL 不支持的语法（如 `all()`, `none()` 等列表谓词函数），请用户重写查询或手动调整。
+STRING9_3: ❌ 报错提示：查询包含 GQL 不支持的语法（如 `ENDS WITH`），请用户重写查询或手动调整。
+TEMPORAL4_3: ❌INSERT ({dates: <temporal>})
+TYPECONVERSION1_3: ❌ 报错提示：查询包含 GQL 不支持的语法（如 `toBoolean()`），请用户重写查询或手动调整。
+COUNTINGSUBGRAPHMATCHES1_6: MATCH (n)-[r]-(n) RETURN count(DISTINCT r)
+TRIADICSELECTION1_8: MATCH (a)-[]->(b)-[]->(c)   OPTIONAL MATCH (a)-[r]->(c)   WHERE r IS NULL   RETURN c.name

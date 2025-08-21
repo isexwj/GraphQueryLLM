@@ -1,0 +1,37 @@
+{"id": "CALL2_1", "module": "CALL2", "cypher": "CALL test.my.proc('Stefan', 1)"}
+{"id": "CREATE6_8", "module": "CREATE6", "cypher": "CREATE ()-[r:R {num: 42}]->()       RETURN r       SKIP 1"}
+{"id": "DELETE2_2", "module": "DELETE2", "cypher": "MATCH p = ()-[r:T]-()       WHERE r.id = 42       DELETE r"}
+{"id": "MATCH7_30", "module": "MATCH7", "cypher": "MATCH (p:Player)-[:PLAYS_FOR]->(team:Team)       OPTIONAL MATCH (p)-[s:SUPPORTS]->(team)       RETURN count(*) AS matches, s IS NULL AS optMatch"}
+{"id": "MATCHWHERE2_0", "module": "MATCHWHERE2", "cypher": "MATCH (a)--(b)--(c)--(d)--(a), (b)--(d)       WHERE a.id = 1         AND c.id = 2       RETURN d"}
+{"id": "MERGE1_13", "module": "MERGE1", "cypher": "MATCH (a:A)       DELETE a       MERGE (a2:A)       RETURN a2.num"}
+{"id": "REMOVE1_1", "module": "REMOVE1", "cypher": "MATCH (n)       REMOVE n.num, n.name       RETURN size(keys(n)) AS props"}
+{"id": "RETURN5_3", "module": "RETURN5", "cypher": "MATCH (n)       RETURN count(DISTINCT {name: [{name2: n.list}, {baz: {apa: n.list}}]}) AS count"}
+{"id": "RETURNORDERBY1_6", "module": "RETURNORDERBY1", "cypher": "UNWIND [1.5, 1.3, 999.99] AS floats       RETURN floats       ORDER BY floats"}
+{"id": "RETURNSKIPLIMIT1_4", "module": "RETURNSKIPLIMIT1", "cypher": "MATCH (n) RETURN n SKIP n.count"}
+{"id": "SET6_19", "module": "SET6", "cypher": "MATCH ()-[r:R]->()       SET r.num = r.num + 1       RETURN sum(r.num) AS sum"}
+{"id": "UNION2_2", "module": "UNION2", "cypher": "UNWIND [2, 1, 2, 3] AS x       RETURN x       UNION ALL       UNWIND [3, 4] AS x       RETURN x"}
+{"id": "UNWIND1_7", "module": "UNWIND1", "cypher": "UNWIND [] AS empty       RETURN empty"}
+{"id": "WITH6_3", "module": "WITH6", "cypher": "MATCH p = ()-[*]->()       WITH count(*) AS count, p AS p       RETURN nodes(p) AS nodes"}
+{"id": "WITHORDERBY4_7", "module": "WITHORDERBY4", "cypher": "MATCH (a:A)       WITH a, a.num + a.num2 AS sum       WITH a, a.num2 % 3 AS mod         ORDER BY sum         LIMIT 3       RETURN a, mod"}
+{"id": "WITHSKIPLIMIT2_3", "module": "WITHSKIPLIMIT2", "cypher": "MATCH ()-[r1]->(x)       WITH x, sum(r1.num) AS c         ORDER BY c LIMIT 1       RETURN x, c"}
+{"id": "WITHWHERE4_0", "module": "WITHWHERE4", "cypher": "MATCH (a), (b)       WITH a, b       WHERE a <> b       RETURN a, b"}
+{"id": "AGGREGATION1_1", "module": "AGGREGATION1", "cypher": "MATCH ()-[r]-()       RETURN count(r)"}
+{"id": "BOOLEAN4_2", "module": "BOOLEAN4", "cypher": "MATCH (n)       WHERE NOT(n.name = 'apa' AND false)       RETURN n"}
+{"id": "COMPARISON3_8", "module": "COMPARISON3", "cypher": "MATCH (n)       WHERE 10 < n.num <= 3       RETURN n.num"}
+{"id": "CONDITIONAL2_0", "module": "CONDITIONAL2", "cypher": "RETURN CASE <value>           WHEN -10 THEN 'minus ten'           WHEN 0 THEN 'zero'           WHEN 1 THEN 'one'           WHEN 5 THEN 'five'           WHEN 10 THEN 'ten'           WHEN 3000 THEN 'three thousand'           ELSE 'something else'         END AS result"}
+{"id": "EXISTENTIALSUBQUERY1_3", "module": "EXISTENTIALSUBQUERY1", "cypher": "MATCH (n) WHERE exists {         (n)-[r]->() WHERE type(r) = 'NA'       }       RETURN n"}
+{"id": "GRAPH5_1", "module": "GRAPH5", "cypher": "MATCH ()-[r]->()       RETURN r, r:T2 AS result"}
+{"id": "LIST5_39", "module": "LIST5", "cypher": "RETURN [] IN [1, 2, null] AS res"}
+{"id": "LITERALS3_16", "module": "LITERALS3", "cypher": "RETURN -0x8000000000000001 AS literal"}
+{"id": "MAP2_6", "module": "MAP2", "cypher": "WITH $expr AS expr, $idx AS idx       RETURN expr[idx]"}
+{"id": "MATHEMATICAL3_0", "module": "MATHEMATICAL3", "cypher": "RETURN 42 — 41"}
+{"id": "NULL1_1", "module": "NULL1", "cypher": "OPTIONAL MATCH (n)       RETURN n.missing IS NULL,              n.exists IS NULL"}
+{"id": "PATH3_1", "module": "PATH3", "cypher": "MATCH (n)       RETURN length(n)"}
+{"id": "PATTERN1_23", "module": "PATTERN1", "cypher": "MATCH (n) WITH (n)-[]->() AS x RETURN x"}
+{"id": "PRECEDENCE1_23", "module": "PRECEDENCE1", "cypher": "UNWIND [true, false, null] AS a       UNWIND [true, false, null] AS b       WITH collect((NOT a <nullpred>) = (NOT (a <nullpred>))) AS eq,            collect((NOT a <nullpred>) <> ((NOT a) <nullpred>)) AS neq       RETURN all(x IN eq WHERE x) AND any(x IN neq WHERE x) AS result"}
+{"id": "QUANTIFIER8_2", "module": "QUANTIFIER8", "cypher": "RETURN all(x IN [1, 2, 3, 4, 5, 6, 7, 8, 9] WHERE <predicate>) = none(x IN [1, 2, 3, 4, 5, 6, 7, 8, 9] WHERE NOT (<predicate>)) AS result"}
+{"id": "STRING9_3", "module": "STRING9", "cypher": "MATCH (a)       WHERE a.name ENDS WITH ' '       RETURN a.name AS name"}
+{"id": "TEMPORAL4_3", "module": "TEMPORAL4", "cypher": "CREATE ({dates: <temporal>})"}
+{"id": "TYPECONVERSION1_3", "module": "TYPECONVERSION1", "cypher": "UNWIND [null, '', ' tru ', 'f alse'] AS things       RETURN toBoolean(things) AS b"}
+{"id": "COUNTINGSUBGRAPHMATCHES1_6", "module": "COUNTINGSUBGRAPHMATCHES1", "cypher": "MATCH (n)-[r]-(n)       RETURN count(DISTINCT r)"}
+{"id": "TRIADICSELECTION1_8", "module": "TRIADICSELECTION1", "cypher": "MATCH (a:A)-[:KNOWS]->(b)-->(c:X)       OPTIONAL MATCH (a)-[r:KNOWS]->(c)       WITH c WHERE r IS NULL       RETURN c.name"}

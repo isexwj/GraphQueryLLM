@@ -1,0 +1,122 @@
+[
+    {
+        "cypher": "MATCH (q:Question)-[:TAGGED]->(t:Tag {name: 'react-apollo'}) WHERE q.score < 0 RETURN q",
+        "gql": "MATCH (q:Question)-[:TAGGED]->(t:Tag {name: 'react-apollo'}) WHERE q.score < 0 RETURN q"
+    },
+    {
+        "cypher": "MATCH p=(a:DOI{doi_id:'0ef3b1eb742dfb0bc64bdfab8ed422f1'})-[*]->(d:Article{comments:'23 pages, 1 figure'}) RETURN count(p)",
+        "gql": "MATCH p=(a:DOI{doi_id:'0ef3b1eb742dfb0bc64bdfab8ed422f1'})-[]->{0,}(d:Article{comments:'23 pages, 1 figure'}) RETURN count(p)"
+    },
+    {
+        "cypher": "MATCH (c:Customer)-[:PURCHASED]->(o:Order) RETURN c.companyName, count(o) AS NumberOfOrders ORDER BY NumberOfOrders DESC LIMIT 3",
+        "gql": "MATCH (c:Customer)-[:PURCHASED]->(o:`Order`) RETURN c.companyName, count(o) AS NumberOfOrders ORDER BY NumberOfOrders DESC LIMIT 3"
+    },
+    {
+        "cypher": "MATCH (u:User)-[:MODERATOR]->(s:Stream) WHERE u.total_view_count > 1000000 RETURN s.name",
+        "gql": "MATCH (u:User)-[:MODERATOR]->(s:Stream) WHERE u.total_view_count > 1000000 RETURN s.name"
+    },
+    {
+        "cypher": "MATCH (t:Teacher) RETURN t.first_name, t.last_name ORDER BY t.last_name",
+        "gql": "MATCH (t:Teacher) RETURN t.first_name, t.last_name ORDER BY t.last_name"
+    },
+    {
+        "cypher": "MATCH (m:Member) WHERE m.Address = 'Harford' OR m.Address = 'Waterbury' RETURN m.Name",
+        "gql": "MATCH (m:Member) WHERE m.Address = 'Harford' OR m.Address = 'Waterbury' RETURN m.Name"
+    },
+    {
+        "cypher": "MATCH (t:Tweet) RETURN t.id ORDER BY t.created_at ASC LIMIT 1",
+        "gql": "MATCH (t:Tweet) RETURN t.id ORDER BY t.created_at ASC LIMIT 1"
+    },
+    {
+        "cypher": "MATCH (me:Me {name: 'Neo4j'})-[:MENTIONS]-(t:Tweet)-[:MENTIONS]-(other:User) WITH avg(other.followers) AS average_followers RETURN average_followers",
+        "gql": "MATCH (me:Me {name: 'Neo4j'})-[:MENTIONS]-(t:Tweet)-[:MENTIONS]-(other:User)\nRETURN avg(other.followers) AS average_followers\nNEXT RETURN average_followers"
+    },
+    {
+        "cypher": "MATCH (c:Character) WHERE c.book1PageRank IS NOT NULL RETURN c.name, c.book1PageRank ORDER BY c.book1PageRank DESC LIMIT 5",
+        "gql": "MATCH (c:Character) WHERE c.book1PageRank IS NOT NULL RETURN c.name, c.book1PageRank ORDER BY c.book1PageRank DESC LIMIT 5"
+    },
+    {
+        "cypher": "MATCH (a:Article)-[:FROM_DEPARTMENT]->(d:Department {departmentNo: 1774}) RETURN d.departmentName",
+        "gql": "MATCH (a:Article)-[:FROM_DEPARTMENT]->(d:Department {departmentNo: 1774}) RETURN d.departmentName"
+    },
+    {
+        "cypher": "MATCH (f:Filing)-[:BENEFITS]->(e:Entity) WHERE f.originator_bank_country = 'United Arab Emirates' RETURN e.name LIMIT 3",
+        "gql": "MATCH (f:Filing)-[:BENEFITS]->(e:Entity) WHERE f.originator_bank_country = 'United Arab Emirates' RETURN e.name LIMIT 3"
+    },
+    {
+        "cypher": "MATCH (f:Filing)-[:ORIGINATOR|:BENEFITS]->(e:Entity) WITH f, COUNT(DISTINCT e) AS entityCount ORDER BY entityCount DESC LIMIT 3 RETURN f.sar_id AS filing_id, entityCount",
+        "gql": "❌MATCH (f:Filing)-[:ORIGINATOR|:BENEFITS]->(e:Entity)\nRETURN f, COUNT(DISTINCT e) AS entityCount\nORDER BY entityCount DESC LIMIT 3\nNEXT RETURN f.sar_id AS filing_id, entityCount"
+    },
+    {
+        "cypher": "MATCH (g:Gymnast) RETURN avg(g.Horizontal_Bar_Points)",
+        "gql": "MATCH (g:Gymnast) RETURN avg(g.Horizontal_Bar_Points)"
+    },
+    {
+        "cypher": "MATCH (u:User {screen_name: 'neo4j'})-[:POSTS]->(t:Tweet) MATCH (t)-[:TAGS]->(h:Hashtag) MATCH (t)-[:MENTIONS]->(m:User) RETURN t.id_str AS tweet_id, t.text AS tweet_text, t.created_at AS created_at ORDER BY t.created_at ASC LIMIT 3",
+        "gql": "MATCH (u:User {screen_name: 'neo4j'})-[:POSTS]->(t:Tweet) MATCH (t)-[:TAGS]->(h:Hashtag) MATCH (t)-[:MENTIONS]->(m:User) RETURN t.id_str AS tweet_id, t.text AS tweet_text, t.created_at AS created_at ORDER BY t.created_at ASC LIMIT 3"
+    },
+    {
+        "cypher": "MATCH (o:Organization) WHERE o.nbrEmployees IS NOT NULL RETURN o.name AS organization, o.nbrEmployees AS numberOfEmployees ORDER BY o.nbrEmployees DESC LIMIT 3",
+        "gql": "MATCH (o:Organization) WHERE o.nbrEmployees IS NOT NULL RETURN o.name AS organization, o.nbrEmployees AS numberOfEmployees ORDER BY o.nbrEmployees DESC LIMIT 3"
+    },
+    {
+        "cypher": "MATCH (c:Company) RETURN c.Company, c.Headquarters ORDER BY c.Market_Value DESC",
+        "gql": "MATCH (c:Company) RETURN c.Company, c.Headquarters ORDER BY c.Market_Value DESC"
+    },
+    {
+        "cypher": "MATCH (o:Organization)-[:HAS_CEO]->(p:Person {name: \"Julie Spellman Sweet\"}), (o)-[:IN_CITY]->(c:City {name: \"Seattle\"}) RETURN o LIMIT 3",
+        "gql": "MATCH (o:Organization)-[:HAS_CEO]->(p:Person {name: \"Julie Spellman Sweet\"}), (o)-[:IN_CITY]->(c:City {name: \"Seattle\"}) RETURN o LIMIT 3"
+    },
+    {
+        "cypher": "MATCH (f:Flight) WHERE f.Velocity > 200 RETURN count(*)",
+        "gql": "MATCH (f:Flight) WHERE f.Velocity > 200 RETURN count(*)"
+    },
+    {
+        "cypher": "MATCH (m:Movie)-[:IN_COLLECTION]->(c:Collection {name: 'Toy Story Collection'}) RETURN m ORDER BY m.release_date DESC LIMIT 5",
+        "gql": "MATCH (m:Movie)-[:IN_COLLECTION]->(c:Collection {name: 'Toy Story Collection'}) RETURN m ORDER BY m.release_date DESC LIMIT 5"
+    },
+    {
+        "cypher": "MATCH (u:User)-[:ASKED]->(q:Question) WITH u, AVG(q.favorites) AS avgFavorites ORDER BY avgFavorites DESC LIMIT 3 RETURN u.display_name AS UserName, avgFavorites",
+        "gql": "MATCH (u:User)-[:ASKED]->(q:Question)\nRETURN u, AVG(q.favorites) AS avgFavorites\nORDER BY avgFavorites DESC LIMIT 3\nNEXT RETURN u.display_name AS UserName, avgFavorites"
+    },
+    {
+        "cypher": "MATCH (e:Employee {Employee_Name: \"Ebba\"})-[:ASSIGNS]->(r:Role) RETURN r.Role_Name, r.Role_Description",
+        "gql": "MATCH (e:Employee {Employee_Name: \"Ebba\"})-[:ASSIGNS]->(r:Role) RETURN r.Role_Name, r.Role_Description"
+    },
+    {
+        "cypher": "MATCH (u:User {screen_name: 'neo4j'})-[:POSTS]->(t:Tweet) OPTIONAL MATCH (t)<-[:REPLY_TO]-(r:Tweet) WITH t, count(r) AS reply_count ORDER BY reply_count DESC LIMIT 5 RETURN t.text AS tweet_text, reply_count",
+        "gql": "MATCH (u:User {screen_name: 'neo4j'})-[:POSTS]->(t:Tweet) OPTIONAL MATCH (t)<-[:REPLY_TO]-(r:Tweet) RETURN t, count(r) AS reply_count ORDER BY reply_count DESC LIMIT 5 NEXT RETURN t.text AS tweet_text, reply_count"
+    },
+    {
+        "cypher": "MATCH (o:Organization) WHERE o.revenue IS NOT NULL RETURN o.name AS organization, o.revenue AS revenue ORDER BY o.revenue DESC LIMIT 5",
+        "gql": "MATCH (o:Organization) WHERE o.revenue IS NOT NULL RETURN o.name AS organization, o.revenue AS revenue ORDER BY o.revenue DESC LIMIT 5"
+    },
+    {
+        "cypher": "MATCH (b:Book) RETURN b.Title, b.Issues",
+        "gql": "MATCH (b:Book) RETURN b.Title, b.Issues"
+    },
+    {
+        "cypher": "MATCH (n:Topic) WHERE n.cluster > 11 OR n.cluster < 5 RETURN n LIMIT 8",
+        "gql": "MATCH (n:Topic) WHERE n.cluster > 11 OR n.cluster < 5 RETURN n LIMIT 8"
+    },
+    {
+        "cypher": "MATCH (f:Faculty) WHERE f.Rank = \"Professor\" AND f.Building = \"NEB\" RETURN f.Room",
+        "gql": "MATCH (f:Faculty) WHERE f.Rank = \"Professor\" AND f.Building = \"NEB\" RETURN f.Room"
+    },
+    {
+        "cypher": "MATCH (s:Storm) RETURN s.Name, s.Damage_millions_USD ORDER BY s.Max_speed DESC",
+        "gql": "MATCH (s:Storm) RETURN s.Name, s.Damage_millions_USD ORDER BY s.Max_speed DESC"
+    },
+    {
+        "cypher": "MATCH (zone:Zone {zone: 3})-[:ROUTES]->(interface:Interface) RETURN interface.ip",
+        "gql": "MATCH (zone:Zone {zone: 3})-[:ROUTES]->(interface:Interface) RETURN interface.ip"
+    },
+    {
+        "cypher": "MATCH (n:Article) WHERE n.comments <> '44 pages' RETURN DISTINCT n.abstract AS abstract",
+        "gql": "MATCH (n:Article) WHERE n.comments <> '44 pages' RETURN DISTINCT n.abstract AS abstract"
+    },
+    {
+        "cypher": "MATCH (campus:Campus) WHERE campus.County = \"Los Angeles\" RETURN campus.Campus",
+        "gql": "MATCH (campus:Campus) WHERE campus.County = \"Los Angeles\" RETURN campus.Campus"
+    }
+]
