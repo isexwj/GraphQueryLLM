@@ -23,7 +23,7 @@ client = OpenAI(api_key=DEEPSEEK_API_KEY, base_url="https://api.deepseek.com")
 
 # 新增RAG部分
 chroma_client = chromadb.PersistentClient(path="gql_chroma")
-collection = chroma_client .get_collection("gql_chunks")
+collection = chroma_client.get_collection("gql_chunks")
 model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
 
 def retrieve_context(query, top_k=3):
